@@ -8,6 +8,7 @@ import integration.utils.readJson
 import io.ktor.http.HttpStatusCode
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.Test
+import java.math.BigDecimal
 import java.util.UUID
 
 class ApplicationIntegrationTest : IntegrationTest() {
@@ -20,7 +21,8 @@ class ApplicationIntegrationTest : IntegrationTest() {
 
     private val account = Account(
         id = UUID.fromString(accountId),
-        documentNumber = documentNumber
+        documentNumber = documentNumber,
+        availableCreditLimit = BigDecimal(500)
     )
 
     @Test
@@ -49,6 +51,8 @@ class ApplicationIntegrationTest : IntegrationTest() {
 
     @Test
     fun `given valid transaction request should create transaction successfully`() {
+        accountRepository.save(account)
+
         val request = readJson("/request/transaction/create_transaction")
 
         val (_, response, _) = Fuel.post("$baseUrl/transactions")

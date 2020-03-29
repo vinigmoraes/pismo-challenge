@@ -1,5 +1,7 @@
 package br.com.pismochallenge.core.transaction
 
+import br.com.pismochallenge.core.account.AccountService
+import br.com.pismochallenge.core.account.ports.AccountRepository
 import br.com.pismochallenge.core.transaction.ports.TransactionRepository
 import br.com.pismochallenge.core.transaction.ports.TransactionRequest
 import io.mockk.every
@@ -14,7 +16,8 @@ import java.util.UUID
 class TransactionServiceTest {
 
     private val repository = mockk<TransactionRepository>()
-    private val service = TransactionService(repository)
+    private val accountService = mockk<AccountService>()
+    private val service = TransactionService(repository, accountService)
 
     private val accountId = "9adf6f9a-57bb-4bb9-9356-f6e8eec19977"
     private val transactionID = "3475f98b-c6ce-4f42-b7f5-d981f85a5f58"
@@ -34,6 +37,13 @@ class TransactionServiceTest {
             amount = BigDecimal(10.5)
         )
 
+        every {
+            accountService.updateBalance(
+                UUID.fromString(request.accountId),
+                request.amount,
+                OperationType.of(request.operationTypeId)
+            )
+        } just runs
         every { repository.save(any()) } just runs
 
         val transaction = service.create(request)

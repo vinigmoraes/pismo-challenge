@@ -7,6 +7,6 @@ import org.koin.dsl.module
 
 val transactionModule = module {
     single { TransactionController(get(),get()) }
-    single { TransactionService(get()) }
+    single { TransactionService(get(), get()) }
     single<TransactionRepository> { TransactionRepositoryAdapter() }
 }

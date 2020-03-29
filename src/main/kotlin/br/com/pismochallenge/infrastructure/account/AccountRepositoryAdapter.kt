@@ -16,12 +16,14 @@ internal object AccountTable : Table("accounts") {
 
     val id = uuid("id")
     val documentNumber = varchar("document_number", VARCHAR_MAX_LENGTH)
+    val availableCreditLimit = decimal("available_credit_limit", 2, 0)
 
     override val primaryKey = PrimaryKey(id)
 
     fun toAccount(resultRow: ResultRow) = Account(
         id = resultRow[id],
-        documentNumber = resultRow[documentNumber]
+        documentNumber = resultRow[documentNumber],
+        availableCreditLimit = resultRow[availableCreditLimit]
     )
 }
 
@@ -36,6 +38,7 @@ class AccountRepositoryAdapter : AccountRepository {
             AccountTable.insert {
                 it[id] = account.id
                 it[documentNumber] = account.documentNumber
+                it[availableCreditLimit] = account.availableCreditLimit
             }
         }
     }
