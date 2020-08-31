@@ -5,6 +5,7 @@ orbs:
 
 jobs:
   start-application:
+    working_directory: ~/pismo-challenge
     docker:
       - image: circleci/cci-demo-docker-primary:0.0.2
     steps:
