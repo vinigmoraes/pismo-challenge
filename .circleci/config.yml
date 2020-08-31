@@ -32,11 +32,17 @@ jobs:
           name: Integration tests
           command: ./gradlew integrationTest
   api-test:
-    executor: newman/postman-newman-docker
-    steps:
-      - checkout
-      - newman/newman-run:
-          collection: ~/pismo-challenge/postman/pismo-challenge-collection.json
+    working_directory: ~/pismo-challenge/postman
+      docker:
+          - image: circleci/node:stretch
+      steps:
+        - checkout
+        - run:
+            name: Install newman
+            command: npm install -g newman
+        - run:
+            name: Run test collection
+            command: newman run pismo-challenge-collection.json
 
   build:
     working_directory: ~/pismo-challenge
