@@ -34,6 +34,9 @@ jobs:
     steps:
       - checkout
       - run:
+          name: Run application
+          command: docker-compose up --build
+      - run:
           name: Install newman
           command: sudo npm install -g newman
       - run:
