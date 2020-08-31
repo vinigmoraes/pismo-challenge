@@ -53,7 +53,6 @@ workflows:
       - unit-test
       - integration-test
       - api-test
-      - newman-collection-run
 
       - build:
           requires:
