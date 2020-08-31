@@ -33,8 +33,8 @@ jobs:
           command: ./gradlew integrationTest
   api-test:
     working_directory: ~/pismo-challenge/postman
-      docker:
-          -   image: circleci/node:stretch
+    docker:
+      - image: circleci/node:stretch
       steps:
         - checkout
         - run:
