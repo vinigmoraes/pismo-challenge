@@ -15,8 +15,8 @@ jobs:
           command: ./gradlew unitTest
   integration-test:
     working_directory: ~/pismo-challenge
-    machine:
-      docker_layer_caching: true
+    docker:
+      - image: circleci/openjdk:11-jdk-stretch-node-browsers
     environment:
       JDBC_URL: jdbc:postgresql://localhost:5432/pismo-challenge
       JDBC_USER: postgres
@@ -32,12 +32,11 @@ jobs:
           name: Integration tests
           command: ./gradlew integrationTest
   api-test:
-    working_directory: ~/pismo-challenge/postman
     executor: newman/postman-newman-docker
     steps:
       - checkout
       - newman/newman-run:
-          collection: ./pismo-challenge-collection.json
+          collection: ~/pismo-challenge/postman/pismo-challenge-collection.json
 
   build:
     working_directory: ~/pismo-challenge
