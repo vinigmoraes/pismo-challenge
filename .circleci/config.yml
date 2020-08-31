@@ -39,7 +39,7 @@ jobs:
       - checkout
       - run:
           name: Install newman
-          command: npm install -g newman
+          command: sudo npm install -g newman
       - run:
           name: Run test collection
           command: newman run pismo-challenge-collection.json
