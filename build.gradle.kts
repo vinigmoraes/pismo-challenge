@@ -1,3 +1,5 @@
+import org.gradle.api.tasks.testing.logging.TestLogEvent
+
 plugins {
     kotlin("jvm") version "1.3.61"
     id("com.github.johnrengelman.shadow") version "5.0.0"
@@ -41,6 +43,24 @@ dependencies {
 }
 
 tasks {
+
+    create("unitTest", Test::class) {
+        filter {
+            includeTestsMatching("br.com.pismochallenge.core.*")
+        }
+        testLogging {
+            events(TestLogEvent.PASSED)
+            events(TestLogEvent.FAILED)
+        }
+    }
+
+    create("integrationTest", Test::class) {
+        filter {
+            includeTestsMatching("integration.*")
+        }
+        testLogging.showStandardStreams = true
+    }
+
     shadowJar {
         manifest {
             attributes(mapOf("Main-Class" to "io.ktor.server.netty.EngineMain"))

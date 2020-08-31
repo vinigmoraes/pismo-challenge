@@ -22,7 +22,6 @@ class AccountServiceTest {
     private val documentNumber = "1893210"
 
     private val account = Account(
-        id = accountId,
         documentNumber = documentNumber
     )
 
@@ -33,7 +32,6 @@ class AccountServiceTest {
         )
 
         val expectedAccount = Account(
-            id = accountId,
             documentNumber = documentNumber
         )
 
@@ -60,7 +58,6 @@ class AccountServiceTest {
     @Test
     fun `given valid account id should return account successfully`() {
         val exceptedAccount = Account(
-            id = accountId,
             documentNumber = documentNumber
         )
 

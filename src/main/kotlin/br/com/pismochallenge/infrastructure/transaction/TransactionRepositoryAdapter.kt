@@ -14,7 +14,6 @@ internal object TransactionTable : Table("transactions") {
 
     val id = TransactionTable.uuid("id")
     val accountId = TransactionTable.varchar("account_id", VARCHAR_MAX_LENGTH)
-    val operationType = TransactionTable.integer("operation_type_id")
     val amount = TransactionTable.decimal("amount", 2, 0)
     val createdAt = TransactionTable.datetime("created_at")
 
@@ -33,7 +32,6 @@ class TransactionRepositoryAdapter :
             TransactionTable.insert {
                 it[id] = transaction.id
                 it[accountId] = transaction.accountId
-                it[operationType] = transaction.operationTypeId.value.toInt()
                 it[amount] = transaction.amount
                 it[createdAt] = transaction.createdAt
             }

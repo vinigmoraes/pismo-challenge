@@ -21,10 +21,9 @@ internal object AccountTable : Table("accounts") {
     override val primaryKey = PrimaryKey(id)
 
     fun toAccount(resultRow: ResultRow) = Account(
-        id = resultRow[id],
         documentNumber = resultRow[documentNumber],
         availableCreditLimit = resultRow[availableCreditLimit]
-    )
+    ).apply { this.id = resultRow[AccountTable.id] }
 }
 
 class AccountRepositoryAdapter : AccountRepository {

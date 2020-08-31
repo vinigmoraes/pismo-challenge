@@ -1,0 +1,67 @@
+version: 2.1
+
+orbs:
+  newman: postman/newman@0.0.2
+
+jobs:
+  unit-test:
+    working_directory: ~/pismo-challenge
+    docker:
+      - image: circleci/openjdk:11-jdk-stretch-node-browsers
+    steps:
+      - run:
+          name: Unit tests
+          command: ./gradlew unitTest
+  integration-test:
+    working_directory: ~/pismo-challenge
+    machine:
+      docker_layer_caching: true
+    environment:
+      JDBC_URL: jdbc:postgresql://localhost:5432/pismo-challenge
+      JDBC_USER: postgres
+      JDBC_PASSWORD: root
+    steps:
+      - run:
+          name: Download Java 11
+          command: |
+            sudo apt update
+            sudo apt install openjdk-11-jdk
+      - checkout
+      - run:
+          name: Integration tests
+          command: ./gradlew integrationTest
+  api-test:
+    working_directory: ~/pismo-challenge/postman
+    executor: newman/postman-newman-docker
+    steps:
+      - newman/newman-run:
+          collection: ./pismo-challenge-collection.json
+
+  build:
+    working_directory: ~/pismo-challenge
+    docker:
+      - image: circleci/openjdk:11-jdk-stretch-node-browsers
+    steps:
+      - checkout
+      - run:
+          name: run build
+          command: ./gradlew clean build
+
+workflows:
+  'Test, Build and Deploy Workflow':
+    jobs:
+      - unit-test
+      - integration-test
+      - api-test
+      - newman-collection-run
+
+      - build:
+          requires:
+            - unit-test
+            - integration-test
+            - api-test
+
+
+
+
+

@@ -15,15 +15,14 @@ class ApplicationIntegrationTest : IntegrationTest() {
 
     private val accountRepository = AccountRepositoryAdapter()
 
-    private val accountId = "0607ad38-da5d-4e45-9e07-150771a0a640"
+    private val accountId = UUID.fromString("0607ad38-da5d-4e45-9e07-150771a0a640")
     private val documentNumber = "1928321"
     private val baseUrl = "http://localhost:8081"
 
     private val account = Account(
-        id = UUID.fromString(accountId),
         documentNumber = documentNumber,
         availableCreditLimit = BigDecimal(500)
-    )
+    ).apply { id = accountId }
 
     @Test
     fun `given valid create account request should create account successfully`() {

@@ -4,8 +4,6 @@ import br.com.pismochallenge.core.account.exceptions.AccountAlreadyExistExceptio
 import br.com.pismochallenge.core.account.exceptions.AccountNotFoundException
 import br.com.pismochallenge.core.account.ports.AccountRepository
 import br.com.pismochallenge.core.account.ports.CreateAccountRequest
-import br.com.pismochallenge.core.transaction.OperationType
-import java.math.BigDecimal
 import java.util.UUID
 
 class AccountService(
@@ -23,13 +21,5 @@ class AccountService(
     }
 
     fun find(id: UUID) = repository.findById(id) ?: throw AccountNotFoundException(id)
-
-    fun updateBalance(accountId: UUID, amount: BigDecimal, operationType: OperationType) {
-        val account = find(accountId)
-
-        account
-            .updateBalance(amount, operationType)
-            .let { repository.save(it) }
-    }
 }
 
