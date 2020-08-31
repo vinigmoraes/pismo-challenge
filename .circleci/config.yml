@@ -34,7 +34,7 @@ jobs:
   api-test:
     working_directory: ~/pismo-challenge/postman
       docker:
-          - image: circleci/node:stretch
+          -   image: circleci/node:stretch
       steps:
         - checkout
         - run:
