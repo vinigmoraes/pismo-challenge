@@ -35,14 +35,14 @@ jobs:
     working_directory: ~/pismo-challenge/postman
     docker:
       - image: circleci/node:stretch
-      steps:
-        - checkout
-        - run:
-            name: Install newman
-            command: npm install -g newman
-        - run:
-            name: Run test collection
-            command: newman run pismo-challenge-collection.json
+    steps:
+      - checkout
+      - run:
+          name: Install newman
+          command: npm install -g newman
+      - run:
+          name: Run test collection
+          command: newman run pismo-challenge-collection.json
 
   build:
     working_directory: ~/pismo-challenge
