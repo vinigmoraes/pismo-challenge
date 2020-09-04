@@ -9,9 +9,6 @@ jobs:
     steps:
       - checkout
       - run:
-          name: Build project
-          command: ./gradlew clean build
-      - run:
           command: docker-compose up --build
 
   unit-test:
@@ -67,16 +64,20 @@ jobs:
 workflows:
   'Test, Build and Deploy Workflow':
     jobs:
-      - start-application
       - unit-test
       - integration-test
-      - api-test
 
       - build:
           requires:
             - unit-test
             - integration-test
-            - api-test
+      - start-application:
+          requires:
+            - build
+      - api-test:
+          requires:
+            - build
+            - start-application
 
 
 
