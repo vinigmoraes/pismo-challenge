@@ -58,7 +58,10 @@ tasks {
         filter {
             includeTestsMatching("integration.*")
         }
-        testLogging.showStandardStreams = true
+        testLogging {
+            events(TestLogEvent.PASSED)
+            events(TestLogEvent.FAILED)
+        }
     }
 
     shadowJar {
