@@ -9,6 +9,9 @@ jobs:
     steps:
       - checkout
       - run:
+          - name: Build project
+          - command: ./gradlew clean build
+      - run:
           command: docker-compose up --build
 
   unit-test:
