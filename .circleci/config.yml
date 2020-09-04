@@ -61,8 +61,8 @@ jobs:
     steps:
       - checkout
       - run:
-          name: run build
-          command: ./gradlew clean build
+          name: Building Jar application
+          command: ./gradlew clean shadowJar
 
 workflows:
   'Test, Build and Deploy Workflow':
