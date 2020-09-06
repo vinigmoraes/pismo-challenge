@@ -5,6 +5,7 @@ orbs:
 
 jobs:
   start-application:
+    working_directory: ~/pismo-challenge
     machine: true
     steps:
       - checkout
@@ -63,6 +64,8 @@ jobs:
       - run:
           name: Building Jar application
           command: ./gradlew clean assemble
+      - run:
+          command: ls -la build/libs
 
 workflows:
   'Test, Build and Deploy Workflow':
