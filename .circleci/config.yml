@@ -64,21 +64,20 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-            keys:
-              - v1-dependencies-{{ checksum "build.gradle.kts" }}
-              - v1-dependencies-
+          keys:
+            - v1-dependencies-{{ checksum "build.gradle.kts" }}
+            - v1-dependencies-
       - run:
           name: Run assemble
           command: ./gradlew assemble
+      - persist_to_workspace:
+          root: .
+          paths:
+            - build/libs
       - save_cache:
           paths:
             - ~/.gradle
           key: v1-dependencies-{{ checksum "build.gradle.kts" }}
-
-      - persist_to_workspace:
-        root: ./
-        paths:
-          - build/libs/
 
 workflows:
   'Test, Build and Deploy Workflow':
