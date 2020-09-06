@@ -12,7 +12,7 @@ jobs:
       - run:
           command: ls -la
       - run:
-          command: ls -la /build/libs
+          command: cp build/libs/*.jar .
       - run:
           command: docker-compose up --build
 
