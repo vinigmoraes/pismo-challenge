@@ -44,6 +44,8 @@ dependencies {
 
 tasks {
 
+    assemble { dependsOn(shadowJar) }
+
     create("unitTest", Test::class) {
         filter {
             includeTestsMatching("br.com.pismochallenge.core.*")

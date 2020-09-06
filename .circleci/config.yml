@@ -62,7 +62,7 @@ jobs:
       - checkout
       - run:
           name: Building Jar application
-          command: ./gradlew clean shadowJar
+          command: ./gradlew clean assemble
 
 workflows:
   'Test, Build and Deploy Workflow':
