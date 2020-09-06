@@ -9,8 +9,8 @@ jobs:
     machine: true
     steps:
       - checkout
-      - attach_workspace:
-          at: ./build/libs
+      - run:
+          command: docker build . -f Dockerfile
       - run:
           command: docker-compose up --build
 
