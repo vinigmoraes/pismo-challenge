@@ -71,11 +71,9 @@ jobs:
             - v1-dependencies-
       - run:
           name: Run assemble
-          command: ./gradlew clean build -x test
-      - persist_to_workspace:
-          root: ./
-          paths:
-            - build/libs/
+          command: ./gradlew clean assemble
+      - store_artifacts:
+          path: build/libs
       - save_cache:
           paths:
             - ~/.gradle
