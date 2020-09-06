@@ -2,9 +2,9 @@ FROM openjdk:11-jdk
 
 ENV JAR_NAME pismo-challenge-all.jar
 
-WORKDIR /pismo-challenge
+WORKDIR /app
 
-COPY build/libs/$JAR_NAME $JAR_NAME
+COPY ./build/libs/$JAR_NAME /app/$JAR_NAME
 
 EXPOSE 8080
 
