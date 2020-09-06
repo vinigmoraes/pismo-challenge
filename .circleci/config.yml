@@ -9,6 +9,8 @@ jobs:
     machine: true
     steps:
       - checkout
+      - attach_workspace:
+          at: ./build/libs
       - run:
           command: docker-compose up --build
 
@@ -61,13 +63,22 @@ jobs:
       - image: circleci/openjdk:11-jdk-stretch-node-browsers
     steps:
       - checkout
+      - restore_cache:
+            keys:
+              - v1-dependencies-{{ checksum "build.gradle.kts" }}
+              - v1-dependencies-
       - run:
           name: Run assemble
           command: ./gradlew assemble
-      - persist_to_workspace:
-          root: .
+      - save_cache:
           paths:
-            - build/libs
+            - ~/.gradle
+          key: v1-dependencies-{{ checksum "build.gradle.kts" }}
+
+      - persist_to_workspace:
+        root: ./
+        paths:
+          - build/libs/
 
 workflows:
   'Test, Build and Deploy Workflow':
