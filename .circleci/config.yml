@@ -10,7 +10,7 @@ jobs:
     steps:
       - checkout
       - run:
-          command: docker build . -f Dockerfile
+          command: ls -la
       - run:
           command: docker-compose up --build
 
@@ -70,10 +70,6 @@ jobs:
       - run:
           name: Run assemble
           command: ./gradlew assemble
-      - persist_to_workspace:
-          root: .
-          paths:
-            - build/libs
       - save_cache:
           paths:
             - ~/.gradle
