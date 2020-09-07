@@ -42,7 +42,7 @@ jobs:
             sudo apt update
             sudo apt install npm
             sudo apt install nodejs
-            npm config set registry="https://registry.npmjs.org/newman"
+            npm config set strict-ssl false
       - run:
           name: Install Newman
           command: sudo npm install -g newman
