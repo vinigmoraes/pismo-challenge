@@ -35,6 +35,10 @@ jobs:
     working_directory: ~/pismo-challenge
     docker:
       - image: circleci/node:stretch
+    environment:
+          JAVA_HOME: /usr/lib/jvm/java-11-openjdk-amd64
+          JAVA_TOOL_OPTIONS: "-Xmx4G"
+          GRADLE_OPTS: "-Xmx4G -Dorg.gradle.daemon=false -DdisablePreDex"
     steps:
       - checkout
       - setup_remote_docker
