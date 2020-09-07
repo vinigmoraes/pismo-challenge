@@ -37,12 +37,13 @@ jobs:
     steps:
       - checkout
       - run:
+          name: Install Npm and Node
+          command: sudo apt get update
+            sudo apt get npm install
+            sudo apt get install nodejs
+      - run:
           name: Install Newman
-          command: |
-            sudo apt-get update
-            sudo apt-get npm install
-            sudo apt-get install nodejs
-            sudo npm install -g newman
+          command: sudo npm install -g newman
       - run:
           name: Run assemble
           command: ./gradlew clean assemble
