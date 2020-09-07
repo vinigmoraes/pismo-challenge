@@ -10,6 +10,8 @@ jobs:
     steps:
       - checkout
       - run:
+          command: ls -la
+      - run:
           command: docker-compose up --build
 
   unit-test:
@@ -69,12 +71,12 @@ jobs:
           name: Run assemble
           command: ./gradlew clean assemble
       - store_artifacts:
-          path: build/libs
+          path: ./build/libs
       - save_cache:
           paths:
             - ~/.gradle
           key: v1-dependencies-{{ checksum "build.gradle.kts" }}
-      -run:
+      - run:
         command: ls -la
 
 workflows:
