@@ -38,7 +38,8 @@ jobs:
       - checkout
       - run:
           name: Install Npm and Node
-          command: sudo apt get update
+          command: |
+            sudo apt get update
             sudo apt get npm install
             sudo apt get install nodejs
       - run:
