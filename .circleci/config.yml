@@ -36,12 +36,17 @@ jobs:
     docker:
       - image: circleci/node:stretch
     environment:
-          JAVA_HOME: /usr/lib/jvm/java-11-openjdk-amd64
-          JAVA_TOOL_OPTIONS: "-Xmx4G"
-          GRADLE_OPTS: "-Xmx4G -Dorg.gradle.daemon=false -DdisablePreDex"
+      JAVA_HOME: /usr/lib/jvm/java-11-openjdk-amd64
+      JAVA_TOOL_OPTIONS: "-Xmx4G"
+      GRADLE_OPTS: "-Xmx4G -Dorg.gradle.daemon=false -DdisablePreDex"
     steps:
       - checkout
       - setup_remote_docker
+      - run:
+          name: Download Java 11
+          command: |
+            sudo apt update
+            sudo apt install openjdk-11-jdk
       - run:
           name: Run assemble
           command: ./gradlew clean assemble
