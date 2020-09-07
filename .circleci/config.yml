@@ -40,7 +40,7 @@ jobs:
           name: Install Npm and Node
           command: |
             sudo apt update
-            sudo apt install npm latest
+            sudo apt install npm
             sudo apt install nodejs
             npm config set strict-ssl false
       - run:
