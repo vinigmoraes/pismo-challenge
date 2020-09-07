@@ -78,9 +78,7 @@ jobs:
           command: docker-compose up --build -d
       - run:
           name: Install npm
-          command: |
-              sudo apt update
-              sudo apt install npm
+          command: sudo npm install
       - run:
           name: Install newman
           command: sudo npm install -g newman
