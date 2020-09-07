@@ -33,29 +33,21 @@ jobs:
   #          command: ./gradlew integrationTest
   api-test:
     working_directory: ~/pismo-challenge
-    docker:
-      - image: circleci/node:stretch
-    environment:
-      JAVA_HOME: /usr/lib/jvm/java-11-openjdk-amd64
-      JAVA_TOOL_OPTIONS: "-Xmx4G"
-      GRADLE_OPTS: "-Xmx4G -Dorg.gradle.daemon=false -DdisablePreDex"
+    machine: true
     steps:
       - checkout
-      - setup_remote_docker
       - run:
-          name: Download Java 11
+          name: Install Newman
           command: |
-            sudo apt update
-            sudo apt install openjdk-11-jdk
+            sudo npm install
+            sudo apt get install nodejs
+            sudo npm install -g newman
       - run:
           name: Run assemble
           command: ./gradlew clean assemble
       - run:
           name: Run application
           command: docker-compose up --build -d
-      - run:
-          name: Install newman
-          command: sudo npm install -g newman
       - run:
           name: Run test collection
           command: newman run postman/pismo-challenge-collection.json
