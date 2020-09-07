@@ -69,15 +69,13 @@ jobs:
       - run:
           name: Run assemble
           command: ./gradlew clean assemble
-      - store_artifacts:
-          path: ./build/libs
       - save_cache:
           paths:
             - ~/.gradle
           key: v1-dependencies-{{ checksum "build.gradle.kts" }}
       - run:
           name: Start Application
-          command: docker-compose up --build
+          command: docker-compose up --build -d
       - run:
           name: Install newman
           command: sudo npm install -g newman
