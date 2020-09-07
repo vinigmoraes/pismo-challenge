@@ -46,8 +46,9 @@ jobs:
       - run:
           name: Install Newman
           command: |
-            sudo npm cache clean
-            sudo npm install -g newman
+            npm i newman -g
+            newman run https://api.getpostman.com/collections/5f43de35a956b541b88c?apikey=PMAK-5f56958e2226f80043e642e8-2fec841ffe491eeb3fff4fcdd0132726bb
+
       - run:
           name: Run assemble
           command: ./gradlew clean assemble
