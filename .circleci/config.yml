@@ -57,13 +57,12 @@ jobs:
 #          name: Run test collection
 #          command: newman run postman/pismo-challenge-collection.json
   api-test:
+    working_directory: ~/pismo-challenge
     executor: newman/postman-newman-docker
     steps:
       - checkout
-      - run:
-          command: ls -la
       - newman/newman-run:
-          collection: ./postman/collection.json
+          collection: postman/pismo-challenge-collection.json
 
   build_and_start_application:
     working_directory: ~/pismo-challenge
