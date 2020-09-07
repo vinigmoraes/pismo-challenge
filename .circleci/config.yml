@@ -45,7 +45,9 @@ jobs:
             npm config set strict-ssl false
       - run:
           name: Install Newman
-          command: sudo npm install -g newman@beta --unsafe-perm
+          command: |
+          sudo npm install npm -g
+          sudo npm install -g newman
       - run:
           name: Run assemble
           command: ./gradlew clean assemble
