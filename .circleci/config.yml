@@ -4,67 +4,51 @@ orbs:
   newman: postman/newman@0.0.2
 
 jobs:
-  start-application:
-    working_directory: ~/pismo-challenge
-    machine: true
-    steps:
-      - checkout
-      - run:
-          command: ls -la
-      - run:
-          command: docker-compose up --build
-
-  unit-test:
-    working_directory: ~/pismo-challenge
-    docker:
-      - image: circleci/openjdk:11-jdk-stretch-node-browsers
-    steps:
-      - checkout
-      - run:
-          name: Unit tests
-          command: ./gradlew unitTest
-
-  integration-test:
-    working_directory: ~/pismo-challenge
-    machine: true
-    environment:
-      JAVA_HOME: /usr/lib/jvm/java-11-openjdk-amd64
-      JAVA_TOOL_OPTIONS: "-Xmx4G"
-      GRADLE_OPTS: "-Xmx4G -Dorg.gradle.daemon=false -DdisablePreDex"
-    steps:
-      - run:
-          name: Download Java 11
-          command: |
-            sudo apt update
-            sudo apt install openjdk-11-jdk
-      - checkout
-      - run:
-          name: Integration tests
-          command: ./gradlew integrationTest
-#  api-test:
+#  unit-test:
 #    working_directory: ~/pismo-challenge
 #    docker:
-#      - image: circleci/node:stretch
+#      - image: circleci/openjdk:11-jdk-stretch-node-browsers
 #    steps:
 #      - checkout
 #      - run:
-#          name: Run application
-#          command: docker-compose up --build -d
+#          name: Unit tests
+#          command: ./gradlew unitTest
+#
+#  integration-test:
+#    working_directory: ~/pismo-challenge
+#    machine: true
+#    environment:
+#      JAVA_HOME: /usr/lib/jvm/java-11-openjdk-amd64
+#      JAVA_TOOL_OPTIONS: "-Xmx4G"
+#      GRADLE_OPTS: "-Xmx4G -Dorg.gradle.daemon=false -DdisablePreDex"
+#    steps:
 #      - run:
-#          name: Install newman
-#          command: sudo npm install -g newman
+#          name: Download Java 11
+#          command: |
+#            sudo apt update
+#            sudo apt install openjdk-11-jdk
+#      - checkout
 #      - run:
-#          name: Run test collection
-#          command: newman run postman/pismo-challenge-collection.json
+#          name: Integration tests
+#          command: ./gradlew integrationTest
   api-test:
     working_directory: ~/pismo-challenge
-    executor: newman/postman-newman-docker
+    docker:
+      - image: circleci/node:stretch
     steps:
       - checkout
-      - newman/newman-run:
-          collection: postman/pismo-challenge-collection.json
+      - setup_remote_docker
+      - run:
+          name: Run application
+          command: docker-compose up --build -d
+      - run:
+          name: Install newman
+          command: sudo npm install -g newman
+      - run:
+          name: Run test collection
+          command: newman run postman/pismo-challenge-collection.json
 
-  build_and_start_application:
+  build:
     working_directory: ~/pismo-challenge
     machine: true
     steps:
@@ -80,25 +64,19 @@ jobs:
           paths:
             - ~/.gradle
           key: v1-dependencies-{{ checksum "build.gradle.kts" }}
-      - run:
-          name: Start Application
-          command: docker-compose up --build -d
-      - newman/newman-run:
-          collection: postman/pismo-challenge-collection.json
 
 workflows:
   'Test, Build and Deploy Workflow':
     jobs:
-      - unit-test
-      - integration-test
+#      - unit-test
+#      - integration-test
+      - api-test
 
-      - build_and_start_application:
+      - build:
           requires:
-            - unit-test
-            - integration-test
-      - api-test:
-          requires:
-            - build_and_start_application
+            - api-test
+#            - unit-test
+#            - integration-test
 
 
 
