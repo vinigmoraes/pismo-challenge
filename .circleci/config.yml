@@ -40,12 +40,14 @@ jobs:
           name: Install Npm and Node
           command: |
             sudo apt update
-            sudo apt install npm
+            sudo apt install npm latest
             sudo apt install nodejs
             npm config set strict-ssl false
       - run:
           name: Install Newman
-          command: sudo npm install -g newman
+          command: |
+            sudo npm cache clean
+            sudo npm install -g newman
       - run:
           name: Run assemble
           command: ./gradlew clean assemble
