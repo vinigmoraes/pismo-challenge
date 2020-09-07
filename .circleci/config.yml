@@ -77,7 +77,7 @@ jobs:
             - ~/.gradle
           key: v1-dependencies-{{ checksum "build.gradle.kts" }}
       - run:
-        command: ls -la
+          command: ls -la
 
 workflows:
   'Test, Build and Deploy Workflow':
