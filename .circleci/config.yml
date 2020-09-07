@@ -56,8 +56,15 @@ jobs:
 #      - run:
 #          name: Run test collection
 #          command: newman run postman/pismo-challenge-collection.json
+  api-test:
+    working_directory: ~/pismo-challenge
+    executor: newman/postman-newman-docker
+    steps:
+      - checkout
+      - newman/newman-run:
+          collection: postman/collection.json
 
-  build_and_api_test:
+  build_and_start_application:
     working_directory: ~/pismo-challenge
     machine: true
     steps:
@@ -76,15 +83,6 @@ jobs:
       - run:
           name: Start Application
           command: docker-compose up --build -d
-      - run:
-          name: Install npm
-          command: sudo npm install
-      - run:
-          name: Install newman
-          command: sudo npm install -g newman
-      - run:
-          name: Run test collection
-          command: newman run postman/pismo-challenge-collection.json
 
 workflows:
   'Test, Build and Deploy Workflow':
@@ -92,10 +90,13 @@ workflows:
       - unit-test
       - integration-test
 
-      - build_and_api_test:
+      - build_and_start_application:
           requires:
             - unit-test
             - integration-test
+      - api-test:
+          requires:
+            - build_and_start_application
 
 
 
