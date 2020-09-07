@@ -10,10 +10,6 @@ jobs:
     steps:
       - checkout
       - run:
-          command: ls -la
-      - run:
-          command: cp build/libs/*.jar .
-      - run:
           command: docker-compose up --build
 
   unit-test:
@@ -78,6 +74,8 @@ jobs:
           paths:
             - ~/.gradle
           key: v1-dependencies-{{ checksum "build.gradle.kts" }}
+      -run:
+        command: ls -la
 
 workflows:
   'Test, Build and Deploy Workflow':
