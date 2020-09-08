@@ -37,6 +37,8 @@ jobs:
     steps:
       - checkout
       - run:
+          command: ./gradlew assemble
+      - run:
           name: Start application
           command: docker-compose up --build -d
       - run:
