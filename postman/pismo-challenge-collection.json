@@ -17,7 +17,7 @@
 								"id": "cd6b15f1-86f2-46f6-b631-180e9a62f094",
 								"exec": [
 									"var json = JSON.parse(responseBody)",
-									"postman.setEnvironmentVariable(\"account_id\", json.id)"
+									"postman.setEnvironmentVariable(\"account_id\", json.id);"
 								],
 								"type": "text/javascript"
 							}
@@ -37,9 +37,9 @@
 							"raw": "{\n\t\"document_number\" : \"12803901\"\n}"
 						},
 						"url": {
-							"raw": "localhost:8080/accounts",
+							"raw": "application-pismo-challenge:8080/accounts",
 							"host": [
-								"localhost"
+								"application-pismo-challenge"
 							],
 							"port": "8080",
 							"path": [
@@ -61,9 +61,9 @@
 							}
 						],
 						"url": {
-							"raw": "localhost:8080/accounts/{{account_id}}",
+							"raw": "application-pismo-challenge:8080/accounts/{{account_id}}",
 							"host": [
-								"localhost"
+								"application-pismo-challenge"
 							],
 							"port": "8080",
 							"path": [
@@ -108,9 +108,9 @@
 							"raw": "{\n\t\"account_id\" : \"{{account_id}}\",\n\t\"amount\" : 123.5\n}"
 						},
 						"url": {
-							"raw": "localhost:8080/transactions",
+							"raw": "application-pismo-challenge:8080/transactions",
 							"host": [
-								"localhost"
+								"application-pismo-challenge"
 							],
 							"port": "8080",
 							"path": [
