@@ -33,7 +33,14 @@ jobs:
   #          command: ./gradlew integrationTest
   api-test:
     working_directory: ~/pismo-challenge
-    machine: true
+    docker:
+      - image: circleci/openjdk:11-jdk-stretch-node-browsers
+        environment:
+          JAVA_HOME: /usr/lib/jvm/java-11-openjdk-amd64
+          JAVA_TOOL_OPTIONS: "-Xmx4G"
+          GRADLE_OPTS: "-Xmx4G -Dorg.gradle.daemon=false -DdisablePreDex"
+      - image: circleci/node:stretch
+
     steps:
       - checkout
       - run:
@@ -44,10 +51,13 @@ jobs:
             sudo apt install nodejs
             npm config set strict-ssl false
       - run:
-          name: Install Newman
+          name: Download Java 11
           command: |
-            sudo npm install npm -g
-            sudo npm install -g newman
+            sudo apt update
+            sudo apt install openjdk-11-jdk
+      - run:
+          name: Install Newman
+          command: sudo npm install -g newman
       - run:
           name: Run assemble
           command: ./gradlew clean assemble
