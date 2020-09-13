@@ -3,7 +3,7 @@ version: '3'
 services:
 
   application:
-    container_name: application-pismo-challenge
+    container_name: application
     restart: always
     build:
       context: .

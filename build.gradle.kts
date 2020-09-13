@@ -70,7 +70,6 @@ tasks {
         manifest {
             attributes(mapOf("Main-Class" to "io.ktor.server.netty.EngineMain"))
         }
-        destinationDirectory.dir("./postman")
     }
 
     compileKotlin {
