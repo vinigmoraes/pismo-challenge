@@ -1,1 +1,1 @@
-web:    java -jar build/libs/pismo-challenge-all.jar
+web: build/install/kotlinserver/bin/kotlinserver
