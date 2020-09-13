@@ -47,7 +47,7 @@ tasks {
     assemble { dependsOn(shadowJar) }
 
     create("stage", Task::class) {
-        dependsOn("build")
+        dependsOn("installDist")
     }
 
     create("unitTest", Test::class) {
