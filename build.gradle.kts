@@ -44,9 +44,11 @@ dependencies {
 
 tasks {
 
-
-
     assemble { dependsOn(shadowJar) }
+
+    create("stage", Task::class) {
+        dependsOn("build")
+    }
 
     create("unitTest", Test::class) {
         filter {
