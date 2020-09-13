@@ -1,1 +1,1 @@
-web:    java -jar build/libs/pismo-challenge-all.jar
+web:    java $JAVA_OPTS -Dserver.port=$PORT -jar build/libs/pismo-challenge-all.jar
