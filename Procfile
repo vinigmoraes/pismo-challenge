@@ -1,1 +1,1 @@
-web: java -jar build/libs/pismo-challenge-all.jar -port=8080
+web: java -jar build/libs/pismo-challenge-all.jar
