@@ -4,6 +4,4 @@ ENV JAR_NAME pismo-challenge-all.jar
 
 COPY build/libs/$JAR_NAME $JAR_NAME
 
-EXPOSE 8080
-
 CMD java -jar $JAR_NAME
