@@ -27,7 +27,7 @@ import org.koin.ktor.ext.get
 import javax.sql.DataSource
 
 fun main() {
-    embeddedServer(Netty, System.getenv("PORT").toInt()) {
+    embeddedServer(Netty, System.getenv("PORT")?.toInt() ?: 8080) {
         main()
     }.start(wait = true)
 }

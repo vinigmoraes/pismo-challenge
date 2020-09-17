@@ -1,7 +1,6 @@
 version: 2.1
 
 orbs:
-  newman: postman/newman@0.0.2
   heroku: circleci/heroku@1.2.2
 
 jobs:
@@ -50,6 +49,17 @@ jobs:
             - ~/.gradle
           key: v1-dependencies-{{ checksum "build.gradle.kts" }}
 
+  api-test:
+    machine: true
+    steps:
+      - checkout
+      - run:
+          name: Docker pull newman
+          command: docker pull postman/newman
+      - run:
+          name: Run collection
+          command: docker run -t postman/newman run "https://www.getpostman.com/collections/5f43de35a956b541b88c"
+
 workflows:
   'Test, Build and Deploy Workflow':
     jobs:
@@ -66,6 +76,9 @@ workflows:
           filters:
             branches:
               only: master
+      - api-test:
+          requires:
+            - heroku/deploy-via-git
 
 
 
