@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "425a7ecc-28c6-409c-85c2-c50257c08ca8",
+		"_postman_id": "966afffd-46c6-42e1-b88c-dd6abea542b4",
 		"name": "Pismo-challenge",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -14,10 +14,10 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "cd6b15f1-86f2-46f6-b631-180e9a62f094",
+								"id": "e31421ce-0e44-4bf4-b61c-7fabe9348c45",
 								"exec": [
 									"var json = JSON.parse(responseBody)",
-									"postman.setEnvironmentVariable(\"account_id\", json.id);"
+									"postman.setEnvironmentVariable(\"account_id\", json.id)"
 								],
 								"type": "text/javascript"
 							}
@@ -37,11 +37,10 @@
 							"raw": "{\n\t\"document_number\" : \"12803901\"\n}"
 						},
 						"url": {
-							"raw": "application-pismo-challenge:8080/accounts",
+							"raw": "{{dev}}/accounts",
 							"host": [
-								"application-pismo-challenge"
+								"{{dev}}"
 							],
-							"port": "8080",
 							"path": [
 								"accounts"
 							]
@@ -61,11 +60,10 @@
 							}
 						],
 						"url": {
-							"raw": "application-pismo-challenge:8080/accounts/{{account_id}}",
+							"raw": "{{dev}}/accounts/{{account_id}}",
 							"host": [
-								"application-pismo-challenge"
+								"{{dev}}"
 							],
-							"port": "8080",
 							"path": [
 								"accounts",
 								"{{account_id}}"
@@ -86,7 +84,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "8ceb4338-4339-4761-bfdc-1601ccdeb7e2",
+								"id": "a92358f8-d2d9-44fe-a1b0-72ff796937be",
 								"exec": [
 									""
 								],
@@ -105,14 +103,13 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"account_id\" : \"{{account_id}}\",\n\t\"amount\" : 123.5\n}"
+							"raw": "{\n\t\"account_id\" : \"{{account_id}}\",\n\t\"operation_type_id\" : \"1\",\n\t\"amount\" : 123.5\n}"
 						},
 						"url": {
-							"raw": "application-pismo-challenge:8080/transactions",
+							"raw": "{{dev}}/transactions",
 							"host": [
-								"application-pismo-challenge"
+								"{{dev}}"
 							],
-							"port": "8080",
 							"path": [
 								"transactions"
 							]
@@ -122,6 +119,23 @@
 				}
 			],
 			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Health",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{dev}}/health",
+					"host": [
+						"{{dev}}"
+					],
+					"path": [
+						"health"
+					]
+				}
+			},
+			"response": []
 		}
 	],
 	"protocolProfileBehavior": {}

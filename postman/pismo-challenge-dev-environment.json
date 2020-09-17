@@ -1,0 +1,19 @@
+{
+	"id": "a7572ef9-8c44-4e95-99c2-360b3fc3d818",
+	"name": "Pismo Challenge",
+	"values": [
+		{
+			"key": "dev",
+			"value": "https://pismo-challenge.herokuapp.com",
+			"enabled": true
+		},
+		{
+			"key": "account_id",
+			"value": "a65c8d61-8897-4ecd-a6ba-89c207351705",
+			"enabled": true
+		}
+	],
+	"_postman_variable_scope": "environment",
+	"_postman_exported_at": "2020-09-17T02:19:45.462Z",
+	"_postman_exported_using": "Postman/7.32.0"
+}
