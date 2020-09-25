@@ -4,6 +4,15 @@ plugins {
     kotlin("jvm") version "1.3.61"
     id("com.github.johnrengelman.shadow") version "5.0.0"
     id("application")
+    id("org.sonarqube") version "3.0"
+}
+
+sonarqube {
+    properties {
+        property("sonar.projectKey", "vinigmoraes_pismo-challenge")
+        property("sonar.organization", "vinigmoraes")
+        property("sonar.host.url", "https://sonarcloud.io")
+    }
 }
 
 version = "unspecified"

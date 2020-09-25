@@ -5,6 +5,15 @@ orbs:
   heroku: circleci/heroku@1.2.2
 
 jobs:
+  code_analysis:
+    docker:
+      - image: circleci/openjdk:11-jdk-stretch-node-browsers
+    steps:
+      - checkout
+      - run:
+          name: Sonarqube analysis
+          command: ./gradlew sonarqube
+
   unit-test:
     working_directory: ~/pismo-challenge
     docker:
@@ -62,9 +71,14 @@ jobs:
 workflows:
   'Test, Build and Deploy Workflow':
     jobs:
-      - unit-test
-      - integration-test
-
+      - code_analysis:
+          context: sonarqube
+      - unit-test:
+          requires:
+            - code_analysis
+      - integration-test:
+          requires:
+            - code_analysis
       - build:
           requires:
             - unit-test

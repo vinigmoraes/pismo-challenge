@@ -15,6 +15,7 @@ services:
       JDBC_URL: jdbc:postgresql://postgres:5432/pismo-challenge
       JDBC_USER: postgres
       JDBC_PASSWORD: root
+      PORT: 8080
 
   postgres:
     container_name: postgres
