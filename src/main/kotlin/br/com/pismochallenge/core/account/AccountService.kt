@@ -4,13 +4,18 @@ import br.com.pismochallenge.core.account.exceptions.AccountAlreadyExistExceptio
 import br.com.pismochallenge.core.account.exceptions.AccountNotFoundException
 import br.com.pismochallenge.core.account.ports.AccountRepository
 import br.com.pismochallenge.core.account.ports.CreateAccountRequest
+import org.slf4j.LoggerFactory
 import java.util.UUID
 
 class AccountService(
     private val repository: AccountRepository
 ) {
 
+    private val logger = LoggerFactory.getLogger(javaClass)
+
     fun create(request: CreateAccountRequest): Account {
+        logger.info("Creating account with info: $request")
+
         require(repository.findByDocumentNumber(request.documentNumber) == null) {
             throw AccountAlreadyExistException(request.documentNumber)
         }
