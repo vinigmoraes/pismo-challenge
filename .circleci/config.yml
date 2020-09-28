@@ -70,8 +70,8 @@ jobs:
 workflows:
   'Test, Build and Deploy Workflow':
     jobs:
-      - unit-test:
-      - integration-test:
+      - unit-test
+      - integration-test
       - code_analysis:
           requires:
             - unit-test
