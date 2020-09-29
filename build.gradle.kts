@@ -55,10 +55,6 @@ tasks {
 
     assemble { dependsOn(shadowJar) }
 
-    create("stage", Task::class) {
-        dependsOn("installDist")
-    }
-
     create("unitTest", Test::class) {
         filter {
             includeTestsMatching("br.com.pismochallenge.core.*")
