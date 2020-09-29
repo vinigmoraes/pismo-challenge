@@ -43,7 +43,8 @@ jobs:
 
   build:
     working_directory: ~/pismo-challenge
-    machine: true
+    docker:
+      - image: circleci/openjdk:11-jdk-stretch-node-browsers
     steps:
       - checkout
       - restore_cache:
