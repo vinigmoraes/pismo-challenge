@@ -75,6 +75,10 @@ tasks {
         }
     }
 
+    create("stage", Task::class) {
+        dependsOn("installDist")
+    }
+
     shadowJar {
         manifest {
             attributes(mapOf("Main-Class" to "io.ktor.server.netty.EngineMain"))
